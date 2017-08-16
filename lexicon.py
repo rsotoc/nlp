@@ -88,7 +88,8 @@ def xml_to_dataframe(origen):
                                      if word in APOSTROFOS else word for word in words]
                             texto = " ".join(texto)
                             texto = re.sub("[^a-zA-Z]", " ", texto)
-                            words = re.sub("(\w+)\s+\\1", "\\1", texto).split()
+                            #Eliminar palabras repetidas consecutivas
+                            words = re.sub(r'\b(\w+)(\s+\1\b)+', r'\1', texto).split()
                             texto = " ".join(words)
 
             working_df.loc[index] = [title, texto]
